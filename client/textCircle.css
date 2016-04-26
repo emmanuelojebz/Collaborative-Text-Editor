@@ -1,0 +1,19 @@
+/* CSS declarations go here */
+.top-margin{
+    margin-top: 15px;
+}
+
+#viewerIframe{
+    border-bottom: 0;
+    border-top: 0;
+    resize: both;
+    width: 100%;
+}
+.label{
+    margin-left: 5px;
+}
+.light-border{
+    border: 1px solid gray;
+    width: 100%;
+    text-align: center;
+}

@@ -1,0 +1,86 @@
+<template name = "docItem">
+<div class = "container top-margin">
+        <div class="row">
+        <div class="col-sm-12">
+            {{>docMeta}}
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-12">
+            {{> editingUsers}}
+        </div>
+    </div>
+    
+        <div class="row">
+            <div class="col-sm-6 col-xs-12 editing">
+                {{>editor}}
+            </div>
+            
+            <div class="col-sm-6 col-xs-12">
+                {{>viewer}}
+            </div>
+            
+        </div>
+    {{>commentList}}
+    {{>insertCommentForm }}
+    </div>
+</template>
+
+
+<template name="editor">
+  {{> sharejsCM docid = docid id= "editor" onRender = config  mode = "javascript"}}
+</template>
+
+<template name = "viewer">
+    <p>Preview goes here</p>
+    <iframe id="viewerIframe">
+    </iframe>
+</template>
+
+<template name = "editingUsers">
+    Editors:
+    {{#each users}}
+    <span class="label label-success">
+    {{firstname}}
+    </span> 
+    {{/each}}
+</template>
+
+
+<template name = "docMeta">
+    {{#with document}}
+    <span class="h1"> {{> editableText collection="documents" field="title"}}</span>
+    {{#if canEdit}}
+    <div class="checkbox">
+    <label>
+      <input type="checkbox" class="js-tog-private"> Private
+    </label>
+  </div>
+    {{/if}}
+    
+     {{/with}}
+</template>
+
+<template name = "commentList">
+    <ul>
+    {{#each comments}}
+    
+        <li>{{title}}
+            <p>{{body}}</p>
+        </li>
+ 
+    {{/each}}
+           </ul>
+</template>
+<template name = "insertCommentForm">
+    {{#autoForm collection = "Comments" id ="insertCommentForm" type="method" meteormethod = "addComment"}}
+    <fieldset>
+        <legend>Comment</legend>
+        {{> afQuickField name = 'title'}}
+        {{> afQuickField name = 'body' rows=6 value="Write your comment here"}}
+        {{> afQuickField name = 'docid' rows=6 value= docid type = "hidden"}}
+    </fieldset>
+    <button type="submit" class="btn btn-primary">Insert</button>
+    {{/autoForm}}
+</template>
